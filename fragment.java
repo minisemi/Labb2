@@ -4,7 +4,7 @@ package Labb2;
 		
 		private int fragmentSize;
 		public int getFragmentSize() {
-			return fragmentSize;
+			return 4;
 		}
 
 		public void setFragmentSize(int fragmentSize) {
