@@ -5,21 +5,18 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 public class Simulator {
 
-	private double[] capacity = new double[Main.rows];
+	private double[] bandwidth = new double[Main.rows];
 	private int[] requestedQuality = new int[Main.rows];
 	double [] timeStamps = new double[Main.rows];
 	double totalTime = 0;
 	private double eastimatedBandwidth;
-	private double oldEstimatedBandwidth = 0;
-	double a = 0.5;
-	
+
 	public Simulator(double[] bandwidth) {
 
-		bandwidth = this.capacity;
+		bandwidth = this.bandwidth;
 
 	}
 
@@ -39,28 +36,28 @@ public class Simulator {
 			double downloadTime = Double.parseDouble(secTemp[5])/1000;
 			timeStamps [i] = downloadTime;
 			totalTime += downloadTime;
-			capacity[i] = 8.0*Integer.parseInt(secTemp[4]);
+			bandwidth[i] = 8.0*Integer.parseInt(secTemp[4])/downloadTime;
 		}
 	}
 
 	public void test() {
-		System.out.println(capacity[3]);
+		System.out.println(bandwidth[3]);
 	}
 
 	public void setQuality(VideoPlayer vp, int time, int previousQuality) {
 
-		if (vp.checkQualityLevel(capacity[time]) > previousQuality) {
+		if (vp.checkQualityLevel(bandwidth[time]) > previousQuality) {
 
 			requestedQuality[time] = previousQuality + 1;
 
 		}
 
-		else if (vp.checkQualityLevel(capacity[time]) < previousQuality - 2) {
+		else if (vp.checkQualityLevel(bandwidth[time]) < previousQuality - 2) {
 
 			requestedQuality[time] = previousQuality - 2;
 		} else {
 
-			requestedQuality[time] = vp.checkQualityLevel(capacity[time]);
+			requestedQuality[time] = vp.checkQualityLevel(bandwidth[time]);
 		}
 	}
 
@@ -96,7 +93,7 @@ public class Simulator {
 				newFragment = new Fragment(qualityLevel);
 
 				}
-				newFragment.addCurrentlyCapacity(capacity[i]);
+				newFragment.addCurrentlyCapacity(bandwidth[i]);
 				newFragment.addTimeElapsed(timeStamps[i]);
 
 				if (newFragment.downloadCompleted()) {
@@ -138,12 +135,6 @@ public class Simulator {
 		
 		eastimatedBandwidth = bits/time;
 	}
-	
-	//Option 2
-	/*public void setEastimatedBandwidth(double bits, double time){
-		eastimatedBandwidth = (1-a)*oldEstimatedBandwidth + a*bits/time;
-		oldEstimatedBandwidth = eastimatedBandwidth;
-	}*/
 	
 	public double getEastimatedBandwidth(){
 		return eastimatedBandwidth;
