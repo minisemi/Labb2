@@ -4,7 +4,7 @@ public class VideoPlayer {
 	
 	
 	
-	public int checkQualityLevel(double bandwidth){
+	public int getQualityLevel(double bandwidth){
 		
 		int qualityLevel = 0;
 		

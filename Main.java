@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Main {
 	
 	static public final int maxBuf = 6, minBuf = 4;
-	static public int currentBufferdData;
+	static public double currentBufferdData;
 
 	public static int rows = 565;
 

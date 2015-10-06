@@ -1,10 +1,12 @@
 package Labb2;
 
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Simulator {
 
@@ -13,6 +15,8 @@ public class Simulator {
 	double [] timeStamps = new double[Main.rows];
 	double totalTime = 0;
 	private double eastimatedBandwidth;
+	
+	ArrayList<Integer> Level = new ArrayList<Integer>();
 
 	public Simulator(double[] bandwidth) {
 
@@ -36,7 +40,7 @@ public class Simulator {
 			double downloadTime = Double.parseDouble(secTemp[5])/1000;
 			timeStamps [i] = downloadTime;
 			totalTime += downloadTime;
-			bandwidth[i] = 8.0*Integer.parseInt(secTemp[4])/downloadTime;
+			bandwidth[i] = 8.0*Integer.parseInt(secTemp[4]);
 		}
 	}
 
@@ -44,26 +48,30 @@ public class Simulator {
 		System.out.println(bandwidth[3]);
 	}
 
-	public void setQuality(VideoPlayer vp, int time, int previousQuality) {
+	public void setQuality(VideoPlayer vp, double eb, int previousQuality) {
+		
+		int temp;
+		
+		if (vp.getQualityLevel(eb) > previousQuality) {
 
-		if (vp.checkQualityLevel(bandwidth[time]) > previousQuality) {
-
-			requestedQuality[time] = previousQuality + 1;
+			temp = previousQuality +1;
+			Level.add(temp);
 
 		}
 
-		else if (vp.checkQualityLevel(bandwidth[time]) < previousQuality - 2) {
+		else if (vp.getQualityLevel(eb) < previousQuality - 2) {
 
-			requestedQuality[time] = previousQuality - 2;
+		//	Level.add(previousQuality - 2);
 		} else {
 
-			requestedQuality[time] = vp.checkQualityLevel(bandwidth[time]);
+			Level.add(vp.getQualityLevel(eb));
 		}
 	}
 
 	public int getPreviousQulity(int time) {
 
-		return requestedQuality[time];
+		
+		return Level.get(Level.size() -1);
 	}
 
 	public void setSameQuality(int previousQuality, int time) {
@@ -91,6 +99,9 @@ public class Simulator {
 				if(newFragment.getReadyForNew()){
 
 				newFragment = new Fragment(qualityLevel);
+				
+				setQuality(vp, getEstimatedBandwidth(), previousQuality);
+				previousQuality = getPreviousQulity(i);
 
 				}
 				newFragment.addCurrentlyCapacity(bandwidth[i]);
@@ -100,12 +111,9 @@ public class Simulator {
 
 					Main.currentBufferdData += 4;
 					newFragment.setReadyForNew(true);
-					setEastimatedBandwidth(newFragment.getCurrentlyCapacity(), newFragment.getTimeElapsed());
+					setEstimatedBandwidth(newFragment.getCurrentlyCapacity(), newFragment.getTimeElapsed());
 
 				}
-
-				setQuality(vp, i, previousQuality);
-				previousQuality = getPreviousQulity(i);
 
 			} 
 
@@ -124,19 +132,20 @@ public class Simulator {
 
 	public void print() {
 
-		for (int i = 0; i < Main.rows; i++) {
-			System.out.println(requestedQuality[i]);
+		for (int i = 0; i < Level.size(); i++) {
+			System.out.println(Level.get(i));
 		}
+		System.out.println(Level.size());
 	}
 	
 	//Option 1
 	
-	public void setEastimatedBandwidth(double bits, double time){
+	public void setEstimatedBandwidth(double bits, double time){
 		
 		eastimatedBandwidth = bits/time;
 	}
 	
-	public double getEastimatedBandwidth(){
+	public double getEstimatedBandwidth(){
 		return eastimatedBandwidth;
 	}
 	
