@@ -5,6 +5,7 @@ public class Fragment {
 	int qualityLevel;
 	int fragmentSize;
 	int currentlyDownloaded = 0;
+	boolean readyForNew = false;
 	
 	public Fragment(int qualityLevel){
 		
@@ -24,7 +25,8 @@ public class Fragment {
 		case 3:
 			fragmentSize = 1300000;
 			break;
-			
+		default: 
+			break;
 		
 		}
 		
@@ -40,6 +42,14 @@ public class Fragment {
 		
 		public int getCurrentlyDownloaded(){
 			return currentlyDownloaded;
+		}
+		
+		public void setReadyForNew(boolean b){
+			readyForNew = b;
+		}
+		
+		public boolean getReadyForNew(){
+			return readyForNew;
 		}
 		
 		public boolean downloadCompleted(){

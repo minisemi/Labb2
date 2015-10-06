@@ -19,9 +19,10 @@ public class Simulator {
 
 	public void readData() throws IOException {
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-				new FileInputStream(
-						("C:/Users/Dotson/workspace/TDDD66Git/src/Labb2/Data.txt"))));
+		BufferedReader br = new BufferedReader(
+				new InputStreamReader(
+						new FileInputStream(
+								("C:/Users/Dotson/workspace/TDDD66Git/src/Labb2/Data.txt"))));
 
 		for (int i = 0; i <= Main.rows; i++) {
 			String temp = br.readLine();
@@ -70,10 +71,10 @@ public class Simulator {
 		int previousQuality = -1;
 		int qualityLevel = 0;
 		Fragment newFragment;
+		
+		newFragment = new Fragment(qualityLevel);
 
 		for (int i = 0; i < Main.rows; i++) {
-			
-		
 
 			if (Main.currentBufferdData > Main.maxBuf) {
 				overMaxBuf = true;
@@ -81,16 +82,22 @@ public class Simulator {
 
 			if (!overMaxBuf) {
 				
-				
+				if(newFragment.getReadyForNew()){
+
 				newFragment = new Fragment(qualityLevel);
-				
+
+				}
 				newFragment.setCurrentlyDownloaded(bandwidth[i]);
-				
+
+				if (newFragment.downloadCompleted()) {
+
+					Main.currentBufferdData += 4;
+					newFragment.setReadyForNew(true);
+
+				}
+
 				setQuality(vp, i, previousQuality);
 				previousQuality = getPreviousQulity(i);
-
-				Main.currentBufferdData += 4;
-		
 
 			} else {
 				// setSameQuality(previousQuality, i);
