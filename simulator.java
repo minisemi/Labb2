@@ -93,6 +93,7 @@ public class Simulator {
 
 				}
 				newFragment.setCurrentlyDownloaded(bandwidth[i]);
+				newFragment.addTimeElapsed();
 
 				if (newFragment.downloadCompleted()) {
 
@@ -127,5 +128,7 @@ public class Simulator {
 			System.out.println(requestedQuality[i]);
 		}
 	}
+	
+	
 
 }

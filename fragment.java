@@ -6,6 +6,7 @@ public class Fragment {
 	int fragmentSize;
 	int currentlyDownloaded = 0;
 	boolean readyForNew = false;
+	int timeElapsed = 0;
 	
 	public Fragment(int qualityLevel){
 		
@@ -31,7 +32,7 @@ public class Fragment {
 		}
 		
 	}
-		public int getFragmentSize(){
+		public double getFragmentSize(){
 			return fragmentSize;
 	}
 		
@@ -40,7 +41,7 @@ public class Fragment {
 			currentlyDownloaded += bandwidth;
 		}
 		
-		public int getCurrentlyDownloaded(){
+		public double getCurrentlyDownloaded(){
 			return currentlyDownloaded;
 		}
 		
@@ -60,6 +61,15 @@ public class Fragment {
 			else{
 				return false;
 			}
+		}
+		
+		public void addTimeElapsed(){
+			
+			timeElapsed += 1;
+		}
+		
+		public int getTimeElapsed(){
+			return timeElapsed;
 		}
 
 }
