@@ -10,6 +10,8 @@ public class Simulator {
 
 	private double[] bandwidth = new double[Main.rows];
 	private int[] requestedQuality = new int[Main.rows];
+	double [] timeStamps = new double[Main.rows];
+	double totalTime = 0;
 
 	public Simulator(double[] bandwidth) {
 
@@ -31,6 +33,8 @@ public class Simulator {
 
 			String[] secTemp = temp.split(" ");
 			double downloadTime = Double.parseDouble(secTemp[5])/1000;
+			timeStamps [i] = downloadTime;
+			totalTime += downloadTime;
 			bandwidth[i] = 8.0*Integer.parseInt(secTemp[4])/downloadTime;
 		}
 	}
@@ -110,7 +114,7 @@ public class Simulator {
 
 			// Och Videoplayer in playmode
 			if (i != 0) {
-				Main.currentBufferdData -= 1;
+				Main.currentBufferdData -= timeStamps[i];
 
 			}
 
