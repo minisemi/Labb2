@@ -1,64 +1,32 @@
 package Labb2;
 
-	public class fragment {
+public class Fragment {
+	
+	int qualityLevel;
+	int fragmentSize;
+	
+	public Fragment(int qualityLevel){
 		
-		private int fragmentSize;
-		public int getFragmentSize() {
-			return fragmentSize;
-		}
-
-		public void setFragmentSize(int fragmentSize) {
-			this.fragmentSize = fragmentSize;
-		}
-
-		private int currentlyDownloaded;
-		private int quality;
-		public int getQuality() {
-			return quality;
-		}
-
-		public void setQuality(int quality) {
-			this.quality = quality;
-		}
-
-		private boolean isDone;
+		qualityLevel = this.qualityLevel;
 		
-		public fragment(int quality, int size){
-			fragmentSize = quality*size;
-			currentlyDownloaded = 0;
-			isDone = false;
-			switch (quality) {
-			case 0:
-				this.quality = 250;
-				break;
-			case 1:
-				this.quality = 500;
-				break;
-			case 2:
-				this.quality = 850;
-				break;
-			case 3:
-				this.quality = 1300;
-				break;			
-			default:
-				break;
-			}
+		switch(qualityLevel){
+		
+		case 0:
+			fragmentSize = 250000*8;
+			break;
+		case 1:
+			fragmentSize = 500000*8;
+			break;
+		case 2:
+			fragmentSize = 850000*8;
+			break;
+		case 3:
+			fragmentSize = 1300000*8;
+			break;
+			
+		
 		}
-
-		public int getCurrentlyDownloaded() {
-			return currentlyDownloaded;
-		}
-
-		public void setCurrentlyDownloaded(int currentlyDownloaded) {
-			this.currentlyDownloaded = currentlyDownloaded;
-		}
-
-		public boolean isDone() {
-			return isDone;
-		}
-
-		public void setDone(boolean isDone) {
-			this.isDone = isDone;
-		}
-
+		
 	}
+
+}
