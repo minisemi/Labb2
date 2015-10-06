@@ -8,10 +8,10 @@ import java.io.InputStreamReader;
 
 public class Simulator {
 
-	private int[] bandwidth = new int[Main.rows];
+	private double[] bandwidth = new double[Main.rows];
 	private int[] requestedQuality = new int[Main.rows];
 
-	public Simulator(int[] bandwidth) {
+	public Simulator(double[] bandwidth) {
 
 		bandwidth = this.bandwidth;
 
@@ -30,7 +30,8 @@ public class Simulator {
 				break;
 
 			String[] secTemp = temp.split(" ");
-			bandwidth[i] = Integer.parseInt(secTemp[4]) * 8;
+			double downloadTime = Double.parseDouble(secTemp[5])/1000;
+			bandwidth[i] = 8.0*Integer.parseInt(secTemp[4])/downloadTime;
 		}
 	}
 

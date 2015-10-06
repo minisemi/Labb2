@@ -35,7 +35,7 @@ public class Fragment {
 			return fragmentSize;
 	}
 		
-		public void setCurrentlyDownloaded(int bandwidth){
+		public void setCurrentlyDownloaded(double bandwidth){
 			
 			currentlyDownloaded += bandwidth;
 		}

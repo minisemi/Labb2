@@ -17,7 +17,7 @@ public class Main {
 
 	public static int rows = 565;
 
-	static int[] rate = new int[rows];
+	static double[] rate = new double[rows];
 
 
 	public static void main(String[] args) throws IOException {
