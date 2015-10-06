@@ -136,6 +136,12 @@ public class Simulator {
 		eastimatedBandwidth = bits/time;
 	}
 	
+	//Option2
+	/*public void setEastimatedBandwidth(double bits, double time){
+		eastimatedBandwidth = (1-a)*oldEstimatedBandwidth + a*bits/time;
+		oldEstimatedBandwidth = eastimatedBandwidth;
+	}*/
+	
 	public double getEastimatedBandwidth(){
 		return eastimatedBandwidth;
 	}
