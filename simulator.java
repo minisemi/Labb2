@@ -29,7 +29,7 @@ public class Simulator {
 				break;
 
 			String[] secTemp = temp.split(" ");
-			bandwidth[i] = Integer.parseInt(secTemp[4]);
+			bandwidth[i] = Integer.parseInt(secTemp[4]) * 8;
 		}
 	}
 
@@ -81,7 +81,10 @@ public class Simulator {
 
 			if (!overMaxBuf) {
 				
+				
 				newFragment = new Fragment(qualityLevel);
+				
+				newFragment.setCurrentlyDownloaded(bandwidth[i]);
 				
 				setQuality(vp, i, previousQuality);
 				previousQuality = getPreviousQulity(i);
