@@ -4,9 +4,9 @@ public class Fragment {
 	
 	int qualityLevel;
 	int fragmentSize;
-	int currentlyDownloaded = 0;
+	double capacity = 0;
 	boolean readyForNew = false;
-	int timeElapsed = 0;
+	double timeElapsed = 0;
 	
 	public Fragment(int qualityLevel){
 		
@@ -36,13 +36,13 @@ public class Fragment {
 			return fragmentSize;
 	}
 		
-		public void setCurrentlyDownloaded(double bandwidth){
+		public void addCurrentlyCapacity(double bits){
 			
-			currentlyDownloaded += bandwidth;
+			capacity += bits;
 		}
 		
-		public double getCurrentlyDownloaded(){
-			return currentlyDownloaded;
+		public double getCurrentlyCapacity(){
+			return capacity;
 		}
 		
 		public void setReadyForNew(boolean b){
@@ -55,7 +55,7 @@ public class Fragment {
 		
 		public boolean downloadCompleted(){
 			
-			if(currentlyDownloaded >= fragmentSize){
+			if(capacity >= fragmentSize){
 				return true;
 			}
 			else{
@@ -63,12 +63,12 @@ public class Fragment {
 			}
 		}
 		
-		public void addTimeElapsed(){
+		public void addTimeElapsed(double d){
 			
-			timeElapsed += 1;
+			timeElapsed += d;
 		}
 		
-		public int getTimeElapsed(){
+		public double getTimeElapsed(){
 			return timeElapsed;
 		}
 

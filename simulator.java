@@ -12,6 +12,7 @@ public class Simulator {
 	private int[] requestedQuality = new int[Main.rows];
 	double [] timeStamps = new double[Main.rows];
 	double totalTime = 0;
+	private double eastimatedBandwidth;
 
 	public Simulator(double[] bandwidth) {
 
@@ -92,22 +93,21 @@ public class Simulator {
 				newFragment = new Fragment(qualityLevel);
 
 				}
-				newFragment.setCurrentlyDownloaded(bandwidth[i]);
-				newFragment.addTimeElapsed();
+				newFragment.addCurrentlyCapacity(bandwidth[i]);
+				newFragment.addTimeElapsed(timeStamps[i]);
 
 				if (newFragment.downloadCompleted()) {
 
 					Main.currentBufferdData += 4;
 					newFragment.setReadyForNew(true);
+					setEastimatedBandwidth(newFragment.getCurrentlyCapacity(), newFragment.getTimeElapsed());
 
 				}
 
 				setQuality(vp, i, previousQuality);
 				previousQuality = getPreviousQulity(i);
 
-			} else {
-				// setSameQuality(previousQuality, i);
-			}
+			} 
 
 			if (overMaxBuf && Main.currentBufferdData < Main.minBuf) {
 				overMaxBuf = false;
@@ -129,6 +129,16 @@ public class Simulator {
 		}
 	}
 	
+	//Option 1
+	
+	public void setEastimatedBandwidth(double bits, double time){
+		
+		eastimatedBandwidth = bits/time;
+	}
+	
+	public double getEastimatedBandwidth(){
+		return eastimatedBandwidth;
+	}
 	
 
 }

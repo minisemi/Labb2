@@ -12,7 +12,7 @@ public class VideoPlayer {
 			qualityLevel = 1;
 		}
 		
-		if(bandwidth >= 850000/8 && bandwidth < 1300000){
+		if(bandwidth >= 850000 && bandwidth < 1300000){
 			qualityLevel = 2;
 		}
 		
